@@ -1,0 +1,20 @@
+sources:
+  - name: Landing_ahussien
+    database: ready-data-de24
+    schema: Landing_ahussien
+    tables:
+      - name: cars_data
+  - name: dbt_ahussien
+    database: ready-data-de24
+    schema: dbt_ahussien
+    tables:
+      - name: dim_brand
+      - name: dim_drivetrain
+      - name: dim_engine
+      - name: dim_exterior_color
+      - name: dim_extra_features
+      - name: dim_fuel_type
+      - name: dim_interior_color
+      - name: dim_model
+      - name: dim_transmission
+      - name: junk_dim
