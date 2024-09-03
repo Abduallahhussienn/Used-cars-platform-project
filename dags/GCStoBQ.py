@@ -52,6 +52,7 @@ schema_fields = [
                 {'name': 'exterior_color', 'type': 'STRING', 'mode': 'NULLABLE'},
                 {'name': 'price', 'type': 'STRING', 'mode': 'NULLABLE'}
             ]
+
 source_objects_path = "cars-com_dataset/cars-com_dataset.csv"
 destination_project = "ready-data-de24"
 destination_dataset = "Landing_ahussien"
