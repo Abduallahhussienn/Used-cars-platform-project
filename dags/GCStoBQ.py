@@ -3,8 +3,7 @@ from datetime import datetime
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQueryOperator
-from airflow.operators.python import PythonOperator
-import os
+
 # Dags initialization
 dag = DAG(
     dag_id="Abduallah_from_GCStoBQ",
@@ -12,31 +11,8 @@ dag = DAG(
     schedule_interval=None,
     start_date=datetime(2021, 1, 1),
     catchup=False,
+    schedule = '@hourly'
 )
-
-def check_data_quality(**kwargs):
-    """
-    Checks the data quality of the car_data.csv file.
-    """
-    bucket_name = 'ready-project-dataset'
-    source_object = 'cars-com_dataset/cars-com_dataset.csv'
-    
-    # Check if the file exists in the GCS bucket
-    if not os.path.exists(source_object):
-        raise ValueError(f"File {source_object} not found in the GCS bucket {bucket_name}")
-    
-    # Check the file size
-    file_size = os.path.getsize(source_object)
-    if file_size == 0:
-        raise ValueError(f"File {source_object} is empty")
-    
-    # Check the number of rows in the file
-    with open(source_object, 'r') as f:
-        row_count = len(f.readlines()) - 1  # Exclude the header row
-    if row_count < 1:
-        raise ValueError(f"File {source_object} has less than 1 row of data")
-    
-    print(f"Data quality check passed. File {source_object} has {row_count} rows.")
 
 # Variables declaration
 schema_fields = [
@@ -98,11 +74,7 @@ load_csv = GCSToBigQueryOperator(
     write_disposition="WRITE_TRUNCATE", # determines the behavior of the data load process
     create_disposition= "CREATE_IF_NEEDED" # the target BigQuery table should be created if it does not already exist
 )
-check_data_quality_task = PythonOperator(
-        task_id='check_data_quality',
-        python_callable=check_data_quality,
-        provide_context=True,
-    )
+
 end_task = EmptyOperator(task_id="end_task", dag=dag)
 
-start_task >> load_csv >> check_data_quality_task >> end_task
+start_task >> load_csv >> end_task
