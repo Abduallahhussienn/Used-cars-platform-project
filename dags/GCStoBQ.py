@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.operators.empty import EmptyOperator
 from airflow.providers.google.cloud.transfers.gcs_to_bigquery import GCSToBigQueryOperator
 from airflow.operators.python import PythonOperator
-
+import os
 # Dags initialization
 dag = DAG(
     dag_id="Abduallah_from_GCStoBQ",
