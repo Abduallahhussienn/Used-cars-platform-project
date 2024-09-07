@@ -4,6 +4,19 @@ sources:
     schema: Landing_ahussien
     tables:
       - name: cars_data
+  - name: dbt_ahussien_Stagging_ahussien
+    database: ready-data-de24
+    schema: dbt_ahussien_Stagging_ahussien
+    tables:
+      - name: brand
+      - name: fuel_type
+      - name: engine
+      - name: transmission
+      - name: model   
+      - name: car
+      - name: extra_features
+      - name: interior_color
+      - name: exterior_color
   - name: dbt_ahussien
     database: ready-data-de24
     schema: dbt_ahussien

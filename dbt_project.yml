@@ -40,3 +40,7 @@ models:
     # Applies to all files under models/example/
     star_schema:
       +materialized: table
+      +dataset: "Star_schema_ahussien"
+    stagging:
+      +materialized: table
+      +dataset: "Stagging_ahussien"
